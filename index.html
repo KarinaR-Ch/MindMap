@@ -1,137 +1,608 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lidl Hellas Testing Mind Map</title>
-<script src="https://d3js.org/d3.v7.min.js"></script>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+   <title>Lidl Hellas · Interactive Testing Mind Map</title>
+   <!-- D3.js library -->
+   <script src="https://d3js.org/d3.v7.min.js"></script>
+   <style>
+       * {
+           margin: 0;
+           padding: 0;
+           box-sizing: border-box;
+       }
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
- font-family:Segoe UI, sans-serif;
- background:#020617;
- color:#fff;
- overflow:hidden;
-}
-svg{width:100vw;height:100vh;}
+       body {
+           font-family: 'Inter', 'Segoe UI', 'SF Pro Text', system-ui, -apple-system, 'Roboto', sans-serif;
+           background: radial-gradient(circle at 20% 30%, #0a0f1e, #03050b);
+           color: #eef5ff;
+           overflow: hidden;
+           height: 100vh;
+           width: 100vw;
+       }
 
-.node circle{
- fill:#0f172a;
- stroke-width:2px;
-}
-.node text{
- font-size:12px;
- fill:#fff;
-}
-.link{
- fill:none;
- stroke:#64748b;
- stroke-width:1.8px;
-}
-</style>
+       #mindmap-container {
+           width: 100%;
+           height: 100%;
+           display: block;
+           cursor: grab;
+       }
+
+       svg {
+           width: 100%;
+           height: 100%;
+           background: radial-gradient(ellipse at 30% 40%, #0b1120, #020617);
+           display: block;
+       }
+
+       .node circle {
+           stroke-width: 2.5px;
+           fill: #0a1128;
+           filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
+           transition: all 0.2s ease;
+       }
+
+       .node:hover circle {
+           stroke-width: 3px;
+           filter: drop-shadow(0 0 12px rgba(0,200,255,0.5));
+       }
+
+       .node text {
+           font-size: 11px;
+           font-weight: 500;
+           fill: #eef4ff;
+           dominant-baseline: middle;
+           text-shadow: 0 1px 2px black;
+           pointer-events: none;
+           transition: fill 0.2s;
+       }
+
+       .node:hover text {
+           fill: white;
+           font-weight: 600;
+       }
+
+       .link {
+           fill: none;
+           stroke-width: 2px;
+           stroke-opacity: 0.7;
+           transition: stroke 0.2s;
+       }
+
+       .link:hover {
+           stroke-opacity: 1;
+           stroke-width: 2.8px;
+       }
+
+       .zoom-pane {
+           cursor: grab;
+       }
+       .zoom-pane:active {
+           cursor: grabbing;
+       }
+       
+       .collapse-indicator {
+           cursor: pointer;
+           transition: transform 0.1s ease;
+       }
+       .collapse-indicator:hover {
+           transform: scale(1.2);
+       }
+   </style>
 </head>
-
 <body>
-<svg id="map"></svg>
+<div id="mindmap-container">
+   <svg id="mindmap-svg" width="100%" height="100%"></svg>
+</div>
 
 <script>
-const data = {
-name:"Lidl Hellas Testing",
-children:[
-{
-name:"Testing Types",
-children:[
-{
-name:"Functional Testing",
-children:[
-{name:"Homepage"},
-{name:"Brochures"},
-{name:"Lidl Plus"},
-{name:"Promotions"},
-{name:"Search"},
-{name:"Cookies"}
-]
-},
-{name:"UI/UX"},
-{name:"Performance"},
-{name:"Security"},
-{name:"Compatibility"},
-{name:"Usability"},
-{name:"Localization"}
-]
-},
-{
-name:"Testing Methods",
-children:[
-{name:"Manual"},
-{name:"Exploratory"},
-{name:"Boundary Values"},
-{name:"Equivalence"},
-{name:"Pairwise"}
-]
-},
-{
-name:"Testing Levels",
-children:[
-{name:"Unit"},
-{name:"Integration"},
-{name:"System"},
-{name:"Acceptance"}
-]
-},
-{
-name:"Application Specifics",
-children:[
-{name:"Web"},
-{name:"High Load"},
-{name:"Multilingual"},
-{name:"Personal Data"},
-{name:"Social Media"},
-{name:"eCommerce"}
-]
-}
-]
-};
+   // --------------------------------------------------------------
+   // LIDL HELLAS – COMPLETE TESTING STRATEGY (pure text, no icons)
+   // ENHANCED SYMMETRIC LAYOUT: Functional + UI/UX on LEFT side,
+   // Performance, Security, Compatibility, Usability, Localization on RIGHT side.
+   // CRITICAL: Each node's circle is placed on the side of the text that is 
+   // closer to the central root node (Lidl Hellas Testing Strategy).
+   // Left-side nodes → circle on the right of text, right-side nodes → circle on the left of text.
+   // No overlapping between text, lines, or indicators.
+   // --------------------------------------------------------------
+   const testingData = {
+       name: "Lidl Hellas Testing Strategy",
+       description: "Full quality assurance for web platform, e‑brochures, Lidl Plus, promotions, performance & compliance",
+       children: [
+           {
+               name: "Functional Testing",
+               branchKey: "functional",
+               children: [
+                   { name: "Homepage", children: [
+                       { name: "Display of banners (static, carousel)" },
+                       { name: "Banner link navigation" },
+                       { name: "Display of dynamic blocks (promotions, competitions)" }
+                   ]},
+                   { name: "Brochures", children: [
+                       { name: "Loading of PDF/HTML version" },
+                       { name: "Page turning (buttons, swipe)" },
+                       { name: "Zoom in/out of images" },
+                       { name: "Clickable product links (if present)" }
+                   ]},
+                   { name: "Lidl Plus (Personal Account)", children: [
+                       { name: "New user registration" },
+                       { name: "Login with valid/invalid credentials" },
+                       { name: "Password recovery" },
+                       { name: "Logout" },
+                       { name: "Purchase history view (if available)" },
+                       { name: "Personal data editing" }
+                   ]},
+                   { name: "Promotions & Competitions", children: [
+                       { name: "Display of terms and conditions" },
+                       { name: "Form validation (required fields, email format, phone)" },
+                       { name: "Form submission and confirmation receipt" }
+                   ]},
+                   { name: "Search", children: [
+                       { name: "Keyword search" },
+                       { name: "Filters (categories, price, store)" },
+                       { name: "Special character handling" },
+                       { name: "“No results found” message" }
+                   ]},
+                   { name: "Cookie Preferences", children: [
+                       { name: "Banner display on first visit" },
+                       { name: "Ability to change settings" },
+                       { name: "Persistence of choice across sessions" }
+                   ]}
+               ]
+           },
+           {
+               name: "UI/UX",
+               branchKey: "uiux",
+               children: [
+                   { name: "Visual Integrity", children: [
+                       { name: "No element overlapping" },
+                       { name: "Correct font and icon display" },
+                       { name: "No empty blocks (white areas)" }
+                   ]},
+                   { name: "Responsiveness", children: [
+                       { name: "Desktop (1920x1080, 1366x768)" },
+                       { name: "Tablet (iPad, Android)" },
+                       { name: "Mobile (iPhone SE, iPhone 14, Pixel 5)" }
+                   ]},
+                   { name: "Interactivity", children: [
+                       { name: "Hover states" },
+                       { name: "Focus states for keyboard navigation" },
+                       { name: "Transition animations" }
+                   ]}
+               ]
+           },
+           {
+               name: "Performance",
+               branchKey: "performance",
+               children: [
+                   { name: "Loading Time", children: [
+                       { name: "Main pages (< 2 sec)" },
+                       { name: "Brochure images (< 3 sec)" },
+                       { name: "LCP < 2.5 sec (desktop), < 4 sec (mobile)" }
+                   ]},
+                   { name: "Load Testing", children: [
+                       { name: "Simulation of 500, 1000, 5000 concurrent users on competition page" },
+                       { name: "API response time under load" }
+                   ]},
+                   { name: "Stress Testing", children: [
+                       { name: "Sudden traffic spikes" },
+                       { name: "Behavior when server limits are exceeded" }
+                   ]}
+               ]
+           },
+           {
+               name: "Security",
+               branchKey: "security",
+               children: [
+                   { name: "Authentication", children: [
+                       { name: "Brute-force protection (lockout after several failed attempts)" },
+                       { name: "Password transmitted encrypted" }
+                   ]},
+                   { name: "Data Protection", children: [
+                       { name: "HTTPS with valid SSL certificate" },
+                       { name: "No sensitive data in URL or localStorage" }
+                   ]},
+                   { name: "Input Validation", children: [
+                       { name: "SQL injection in search and competition forms" },
+                       { name: "XSS attacks via input fields" },
+                       { name: "File size limits (if upload exists)" }
+                   ]}
+               ]
+           },
+           {
+               name: "Compatibility",
+               branchKey: "compatibility",
+               children: [
+                   { name: "Browsers", children: [
+                       { name: "Chrome (latest)" },
+                       { name: "Firefox" },
+                       { name: "Safari (macOS, iOS)" },
+                       { name: "Edge" }
+                   ]},
+                   { name: "Operating Systems", children: [
+                       { name: "Windows 10/11" },
+                       { name: "macOS" },
+                       { name: "iOS" },
+                       { name: "Android" }
+                   ]}
+               ]
+           },
+           {
+               name: "Usability",
+               branchKey: "usability",
+               children: [
+                   { name: "Keyboard Navigation", children: [
+                       { name: "Tab, Shift+Tab for movement" },
+                       { name: "Enter/Space to activate elements" },
+                       { name: "Visible focus indicator" }
+                   ]},
+                   { name: "Screen Reader", children: [
+                       { name: "Appropriate ARIA attributes" },
+                       { name: "Logical reading order" }
+                   ]}
+               ]
+           },
+           {
+               name: "Localization",
+               branchKey: "localization",
+               children: [
+                   { name: "Language", children: [
+                       { name: "Greek by default" },
+                       { name: "Presence of language switch to English (defect identified)" }
+                   ]},
+                   { name: "Formats", children: [
+                       { name: "Date (Greek format)" },
+                       { name: "Currency (€)" },
+                       { name: "Units of measure" }
+                   ]}
+               ]
+           }
+       ]
+   };
 
-const width = window.innerWidth;
-const height = window.innerHeight;
+   // ---------- Assign branch colors (distinct, high readability) ----------
+   const branchColorMap = new Map();
+   const colorPalette = [
+       "#3B82F6", // Functional - blue
+       "#10B981", // UI/UX - emerald
+       "#F59E0B", // Performance - amber
+       "#EF4444", // Security - red
+       "#8B5CF6", // Compatibility - violet
+       "#EC4899", // Usability - pink
+       "#14B8A6"  // Localization - teal
+   ];
+   testingData.children.forEach((child, idx) => {
+       branchColorMap.set(child.name, colorPalette[idx % colorPalette.length]);
+   });
 
-const svg = d3.select("#map")
-.append("g")
-.attr("transform","translate(100,50)");
+   // Recursively assign branchColor to every node (inherited from top-level branch)
+   function assignBranchColors(node, inheritedColor = null) {
+       if (branchColorMap.has(node.name)) {
+           node.branchColor = branchColorMap.get(node.name);
+           inheritedColor = node.branchColor;
+       } else if (inheritedColor) {
+           node.branchColor = inheritedColor;
+       } else {
+           node.branchColor = "#6B7280"; // neutral grey fallback
+       }
+       if (node.children) {
+           node.children.forEach(child => assignBranchColors(child, node.branchColor));
+       }
+   }
+   assignBranchColors(testingData);
 
-const root = d3.hierarchy(data);
-const tree = d3.tree().size([height-100,width-200]);
-tree(root);
-
-// links
-svg.selectAll(".link")
-.data(root.links())
-.enter()
-.append("path")
-.attr("class","link")
-.attr("d", d3.linkHorizontal()
-.x(d=>d.y)
-.y(d=>d.x)
-);
-
-// nodes
-const node = svg.selectAll(".node")
-.data(root.descendants())
-.enter()
-.append("g")
-.attr("class","node")
-.attr("transform",d=>`translate(${d.y},${d.x})`);
-
-node.append("circle")
-.attr("r",8);
-
-node.append("text")
-.attr("dx",12)
-.attr("dy",4)
-.text(d=>d.data.name);
-
+   // Build clean hierarchy (deep copy to avoid mutation)
+   function buildHierarchy(src) {
+       let node = { name: src.name, branchColor: src.branchColor };
+       if (src.children && src.children.length) {
+           node.children = src.children.map(child => buildHierarchy(child));
+       }
+       return node;
+   }
+   let rootData = buildHierarchy(testingData);
+   
+   // global reference for current interactive tree (supports collapse/expand)
+   let currentTreeRoot = d3.hierarchy(rootData);
+   
+   // ----- helper: compute leaf count for visible tree (respects collapsed nodes) -----
+   function updateLeafCounts(node) {
+       if (!node.children || node.children.length === 0) {
+           node.leafCount = 1;
+           return 1;
+       }
+       let total = 0;
+       for (let child of node.children) {
+           total += updateLeafCounts(child);
+       }
+       node.leafCount = total;
+       return total;
+   }
+   
+   // ----- SYMMETRIC LAYOUT: Left column = Functional + UI/UX, Right column = Performance, Security, Compatibility, Usability, Localization.
+   // Enhanced spacing to guarantee no overlapping text/lines.
+   function computeSymmetricLayout(rootNode, width, height) {
+       const centerX = width / 2;
+       const centerY = height / 2;
+       const levelXOffset = 185;      // generous horizontal gap
+       const baseVerticalStep = 44;    // increased vertical spacing → clean separation
+       
+       // update leafCounts
+       updateLeafCounts(rootNode);
+       
+       // Root position
+       rootNode.x = centerX;
+       rootNode.y = centerY;
+       
+       const childrenList = rootNode.children || [];
+       // SPLIT: Functional Testing (idx0) + UI/UX (idx1) go to LEFT side
+       // All others (Performance, Security, Compatibility, Usability, Localization) → RIGHT side
+       const leftChildren = childrenList.slice(0, 2);
+       const rightChildren = childrenList.slice(2);
+       
+       // Recursive layout for deeper nodes
+       function layoutNode(node, parentX, parentY, direction, depth) {
+           if (depth === 0) return;
+           node.x = parentX + direction * levelXOffset;
+           if (!node.children || node.children.length === 0) return;
+           
+           const totalLeaf = node.leafCount;
+           const startY = parentY - (totalLeaf - 1) * baseVerticalStep / 2;
+           let accumulatedLeaf = 0;
+           for (let child of node.children) {
+               const childLeaf = child.leafCount;
+               const childY = startY + (accumulatedLeaf + childLeaf / 2) * baseVerticalStep;
+               child.y = childY;
+               layoutNode(child, node.x, child.y, direction, depth + 1);
+               accumulatedLeaf += childLeaf;
+           }
+       }
+       
+       // ---- LEFT side (Functional & UI/UX) ----
+       const leftTotalLeaf = leftChildren.reduce((sum, c) => sum + c.leafCount, 0);
+       const leftStartY = centerY - (leftTotalLeaf - 1) * baseVerticalStep / 2;
+       let accLeft = 0;
+       for (let child of leftChildren) {
+           const childLeaf = child.leafCount;
+           const childY = leftStartY + (accLeft + childLeaf / 2) * baseVerticalStep;
+           child.y = childY;
+           child.x = centerX - levelXOffset;
+           layoutNode(child, child.x, child.y, -1, 1);
+           accLeft += childLeaf;
+       }
+       
+       // ---- RIGHT side (Performance, Security, Compatibility, Usability, Localization) ----
+       const rightTotalLeaf = rightChildren.reduce((sum, c) => sum + c.leafCount, 0);
+       const rightStartY = centerY - (rightTotalLeaf - 1) * baseVerticalStep / 2;
+       let accRight = 0;
+       for (let child of rightChildren) {
+           const childLeaf = child.leafCount;
+           const childY = rightStartY + (accRight + childLeaf / 2) * baseVerticalStep;
+           child.y = childY;
+           child.x = centerX + levelXOffset;
+           layoutNode(child, child.x, child.y, 1, 1);
+           accRight += childLeaf;
+       }
+   }
+   
+   // ---------- Render function with dynamic text/circle orientation (circle always towards center) ----------
+   let svg, g, zoomBehavior;
+   let currentWidth = window.innerWidth;
+   let currentHeight = window.innerHeight;
+   
+   function initSVG() {
+       const container = document.getElementById("mindmap-container");
+       currentWidth = container.clientWidth;
+       currentHeight = container.clientHeight;
+       svg = d3.select("#mindmap-svg");
+       svg.html("");
+       svg.attr("viewBox", [0, 0, currentWidth, currentHeight]);
+       g = svg.append("g").attr("class", "zoom-group");
+       zoomBehavior = d3.zoom()
+           .scaleExtent([0.28, 2.2])
+           .on("zoom", (event) => {
+               g.attr("transform", event.transform);
+           });
+       svg.call(zoomBehavior);
+       svg.call(zoomBehavior.transform, d3.zoomIdentity.translate(currentWidth * 0.45, currentHeight * 0.35).scale(0.68));
+   }
+   
+   function renderMindMap() {
+       if (!g) return;
+       computeSymmetricLayout(currentTreeRoot, currentWidth, currentHeight);
+       
+       const nodes = [];
+       function collect(node) {
+           nodes.push(node);
+           if (node.children) node.children.forEach(collect);
+       }
+       collect(currentTreeRoot);
+       
+       const links = [];
+       function collectLinks(node) {
+           if (node.children) {
+               node.children.forEach(child => {
+                   links.push({ source: node, target: child });
+                   collectLinks(child);
+               });
+           }
+       }
+       collectLinks(currentTreeRoot);
+       
+       // root x coordinate for side detection
+       const rootX = currentTreeRoot.x;
+       
+       // ----- draw links (curved, avoids text) -----
+       const linkGroup = g.selectAll(".link").data(links, d => `${d.source.data.name}_${d.target.data.name}`);
+       linkGroup.exit().remove();
+       const linkEnter = linkGroup.enter().append("path").attr("class", "link").attr("fill", "none");
+       const linkUpdate = linkEnter.merge(linkGroup);
+       linkUpdate.transition().duration(500)
+           .attr("stroke", d => d.target.data.branchColor || "#6c8db0")
+           .attr("stroke-width", 2.2)
+           .attr("d", d => {
+               const sx = d.source.x, sy = d.source.y;
+               const tx = d.target.x, ty = d.target.y;
+               const dx = Math.abs(tx - sx);
+               const offset = Math.min(dx * 0.5, 100);
+               const cx1 = sx + (tx > sx ? offset : -offset);
+               const cx2 = tx + (tx > sx ? -offset : offset);
+               return `M ${sx} ${sy} C ${cx1} ${sy}, ${cx2} ${ty}, ${tx} ${ty}`;
+           });
+       
+       // ----- draw nodes (groups) with dynamic orientation: circle always on the side towards the center -----
+       const nodeGroups = g.selectAll(".node").data(nodes, d => d.data.name + (d.data.branchColor || "") + (d.children ? "parent" : "leaf"));
+       nodeGroups.exit().remove();
+       
+       const nodeEnter = nodeGroups.enter().append("g")
+           .attr("class", "node")
+           .attr("transform", d => `translate(${d.x},${d.y})`)
+           .style("cursor", "pointer")
+           .on("click", function(event, d) {
+               event.stopPropagation();
+               if (d.children && d.children.length > 0) {
+                   d._children = d.children;
+                   d.children = null;
+               } else if (d._children && d._children.length > 0) {
+                   d.children = d._children;
+                   d._children = null;
+               } else {
+                   return;
+               }
+               renderMindMap();
+           });
+       
+       // circle (the node visual)
+       nodeEnter.append("circle")
+           .attr("r", 11)
+           .attr("stroke", d => d.data.branchColor || "#3b82f6")
+           .attr("stroke-width", 2.5)
+           .attr("fill", "#0f172f")
+           .attr("filter", "drop-shadow(0 2px 4px rgba(0,0,0,0.5))");
+       
+       // text element (will be positioned relative to circle depending on side)
+       nodeEnter.append("text")
+           .attr("dy", "0.32em")
+           .style("font-size", "11px")
+           .style("font-weight", "500")
+           .style("letter-spacing", "0.2px")
+           .text(d => d.data.name.length > 34 ? d.data.name.slice(0, 31) + "..." : d.data.name);
+       
+       // collapse indicator (small circle) + symbol
+       const indicatorGroup = nodeEnter.filter(d => (d.children && d.children.length) || (d._children && d._children.length))
+           .append("g").attr("class", "indicator-group");
+       indicatorGroup.append("circle")
+           .attr("class", "collapse-indicator")
+           .attr("r", 7)
+           .attr("fill", d => d.data.branchColor || "#38bdf8")
+           .attr("stroke", "#ffffff")
+           .attr("stroke-width", 1.3);
+       indicatorGroup.append("text")
+           .attr("class", "collapse-symbol")
+           .attr("text-anchor", "middle")
+           .attr("dominant-baseline", "middle")
+           .style("font-size", "9px")
+           .style("font-weight", "bold")
+           .style("fill", "#ffffff")
+           .style("pointer-events", "none")
+           .text(d => d.children ? "−" : "+");
+       
+       // update existing nodes
+       const nodeUpdate = nodeEnter.merge(nodeGroups);
+       nodeUpdate.transition().duration(450)
+           .attr("transform", d => `translate(${d.x},${d.y})`);
+       
+       nodeUpdate.select("circle")
+           .attr("r", 11)
+           .attr("stroke", d => d.data.branchColor || "#3b82f6")
+           .attr("stroke-width", d => (d.children || d._children) ? 3 : 2.2);
+       
+       // ---------- KEY: Adjust text and circle positions so that circle is on the side closer to the root ----------
+       nodeUpdate.each(function(d) {
+           const group = d3.select(this);
+           const isLeftSide = d.x < rootX;      // node is left of center → circle should be on the right of text
+           const isRoot = (d === currentTreeRoot);
+           
+           let textX, textAnchor;
+           let indicatorCx, indicatorCy = -3;
+           
+           if (isRoot) {
+               // root: text to the right of circle (standard)
+               textAnchor = "start";
+               textX = 16;
+               indicatorCx = -13;   // indicator on left side
+           } else if (isLeftSide) {
+               // left side node: circle on the right side of text (because center is to the right)
+               textAnchor = "end";
+               textX = -14;
+               indicatorCx = 14;    // indicator on the right side of circle (further from text)
+           } else {
+               // right side node: circle on the left side of text (center is to the left)
+               textAnchor = "start";
+               textX = 16;
+               indicatorCx = -13;   // indicator on left side of circle (away from text)
+           }
+           
+           // update text
+           group.select("text")
+               .attr("text-anchor", textAnchor)
+               .attr("x", textX)
+               .text(d.data.name.length > 34 ? d.data.name.slice(0, 31) + "..." : d.data.name);
+           
+           // update collapse indicator position (if exists)
+           const hasChildren = (d.children && d.children.length) || (d._children && d._children.length);
+           if (hasChildren) {
+               let indicatorCircle = group.select(".collapse-indicator");
+               let indicatorSymbol = group.select(".collapse-symbol");
+               if (!indicatorCircle.size()) {
+                   // if missing, recreate (should not happen but safe)
+                   group.append("circle").attr("class", "collapse-indicator").attr("r", 7).attr("fill", d.data.branchColor || "#38bdf8").attr("stroke", "#ffffff").attr("stroke-width", 1.3);
+                   group.append("text").attr("class", "collapse-symbol").attr("text-anchor", "middle").attr("dominant-baseline", "middle").style("font-size", "9px").style("font-weight", "bold").style("fill", "#ffffff").style("pointer-events", "none").text(d.children ? "−" : "+");
+                   indicatorCircle = group.select(".collapse-indicator");
+                   indicatorSymbol = group.select(".collapse-symbol");
+               }
+               indicatorCircle.attr("cx", indicatorCx).attr("cy", indicatorCy);
+               indicatorSymbol.attr("x", indicatorCx).attr("y", indicatorCy);
+           } else {
+               group.select(".collapse-indicator").remove();
+               group.select(".collapse-symbol").remove();
+           }
+       });
+   }
+   
+   // ----- resize handler: re-render with new dimensions (prevents overlapping on window resize) -----
+   function handleResize() {
+       const container = document.getElementById("mindmap-container");
+       if (!container) return;
+       currentWidth = container.clientWidth;
+       currentHeight = container.clientHeight;
+       svg.attr("viewBox", [0, 0, currentWidth, currentHeight]);
+       if (currentTreeRoot) {
+           computeSymmetricLayout(currentTreeRoot, currentWidth, currentHeight);
+           renderMindMap();
+       }
+   }
+   
+   // ----- initialization with full tree, adjust zoom to avoid initial overlap -----
+   function init() {
+       initSVG();
+       updateLeafCounts(currentTreeRoot);
+       computeSymmetricLayout(currentTreeRoot, currentWidth, currentHeight);
+       renderMindMap();
+       
+       let resizeTimeout;
+       window.addEventListener("resize", () => {
+           clearTimeout(resizeTimeout);
+           resizeTimeout = setTimeout(() => {
+               handleResize();
+           }, 80);
+       });
+   }
+   
+   // run when DOM fully loaded
+   window.addEventListener("load", () => {
+       init();
+   });
 </script>
 </body>
 </html>
