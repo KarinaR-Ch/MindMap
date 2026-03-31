@@ -1,423 +1,137 @@
-<html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Interactive Mind Map: Software Testing Strategy for AI Voice Platform</title>
-    <!-- D3.js library for hierarchy and zoom -->
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lidl Hellas Testing Mind Map</title>
+<script src="https://d3js.org/d3.v7.min.js"></script>
 
-        body {
-            font-family: 'Inter', 'Segoe UI', 'SF Pro Text', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
-            background: radial-gradient(circle at 20% 30%, #0a0f1e, #03050b);
-            color: #eef5ff;
-            overflow: hidden;
-            height: 100vh;
-            width: 100vw;
-        }
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+ font-family:Segoe UI, sans-serif;
+ background:#020617;
+ color:#fff;
+ overflow:hidden;
+}
+svg{width:100vw;height:100vh;}
 
-        /* SVG container */
-        #mindmap-container {
-            width: 100%;
-            height: 100%;
-            display: block;
-            cursor: grab;
-        }
-
-        svg {
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(ellipse at 30% 40%, #0b1120, #020617);
-            display: block;
-        }
-
-        /* Node styles */
-        .node circle {
-            stroke-width: 2.5px;
-            fill: #0a1128;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4));
-            transition: all 0.2s ease;
-        }
-
-        .node:hover circle {
-            stroke-width: 3px;
-            filter: drop-shadow(0 0 10px rgba(0,200,255,0.6));
-        }
-
-        .node text {
-            font-size: 11px;
-            font-weight: 500;
-            fill: #eef4ff;
-            dominant-baseline: middle;
-            text-shadow: 0 1px 2px black;
-            pointer-events: none;
-            transition: fill 0.2s;
-        }
-
-        .node:hover text {
-            fill: white;
-            font-weight: 600;
-        }
-
-        /* Link lines */
-        .link {
-            fill: none;
-            stroke-width: 2px;
-            stroke-opacity: 0.6;
-            transition: stroke 0.2s;
-        }
-
-        .link:hover {
-            stroke-opacity: 1;
-        }
-
-        /* zoom pane */
-        .zoom-pane {
-            cursor: grab;
-        }
-        .zoom-pane:active {
-            cursor: grabbing;
-        }
-    </style>
+.node circle{
+ fill:#0f172a;
+ stroke-width:2px;
+}
+.node text{
+ font-size:12px;
+ fill:#fff;
+}
+.link{
+ fill:none;
+ stroke:#64748b;
+ stroke-width:1.8px;
+}
+</style>
 </head>
+
 <body>
-<div id="mindmap-container">
-    <svg id="mindmap-svg" width="100%" height="100%"></svg>
-</div>
+<svg id="map"></svg>
 
 <script>
-    // ----------------------------------------------
-    // Detailed mindmap data for software testing of AI Voice Platform
-    // Specifics: Web (Admin portal), Mobile SDK, high user concurrency, AI accuracy, etc.
-    // ----------------------------------------------
-    const mindmapData = {
-        name: "AI Voice Platform Testing",
-        description: "End-to-end test strategy for dialx.ai вЂ” Conversational AI + Telephony",
-        children: [
-            {
-                name: "рџ“± Mobile Testing",
-                description: "SDK integration, native apps, mobile web fallback, network variability",
-                children: [
-                    { name: "iOS SDK", description: "XCFramework, Swift/ObjC compatibility, memory leaks, background audio" },
-                    { name: "Android SDK", description: "AAR, permissions, foreground service, battery drain, audio routing" },
-                    { name: "Mobile Web (PWA)", description: "Responsive voice input, WebRTC constraints, Safari audio context" },
-                    { name: "Network Handover", description: "WiFi в†” 5G в†” LTE seamless, reconnection logic, jitter buffer" },
-                    { name: "Offline Mode", description: "Graceful degradation, local transcript caching, retry queues" },
-                    { name: "Device Fragmentation", description: "500+ device models, microphone quality, Android API levels" }
-                ]
-            },
-            {
-                name: "рџЊђ Web Application Testing",
-                description: "Agent builder dashboard, analytics, real-time logs, cross-browser",
-                children: [
-                    { name: "Cross-Browser", description: "Chrome, Firefox, Safari, Edge вЂ” WebRTC & UI consistency" },
-                    { name: "Responsive UI", description: "Desktop 4K, laptop, tablet portrait вЂ” flex/grid breakpoints" },
-                    { name: "Real-time Monitoring", description: "WebSocket logs, live call metrics, dashboard auto-refresh" },
-                    { name: "Accessibility (WCAG 2.1)", description: "Screen reader (NVDA), keyboard nav, color contrast, ARIA labels" },
-                    { name: "Analytics Module", description: "Chart rendering, export reports, date-range filters, data aggregation" },
-                    { name: "Session Management", description: "SSO, MFA, session timeout, concurrent admin sessions" }
-                ]
-            },
-            {
-                name: "вљЎ Performance & Scalability",
-                description: "Massive concurrent calls, cloud auto-scaling, low latency requirements",
-                children: [
-                    { name: "Load Testing", description: "10k в†’ 50k в†’ 100k concurrent voice sessions, RPS metrics" },
-                    { name: "Stress & Spike", description: "Sudden user bursts (marketing event), resource exhaustion limits" },
-                    { name: "STT/TTS Latency", description: "P99 < 400ms, real-time factor, regional edge latency" },
-                    { name: "API Throughput", description: "REST endpoints: 20k req/sec, WebSocket connections limit" },
-                    { name: "Auto-scaling", description: "K8s HPA, cloud functions, cold start optimisation" },
-                    { name: "Longevity Testing", description: "7-day soak, memory leaks, database connection pooling" }
-                ]
-            },
-            {
-                name: "рџЋЇ Functional Testing",
-                description: "Core voice agent features, conversation logic, API contracts",
-                children: [
-                    { name: "Voice Conversation Flow", description: "Wake word, interruption handling, DTMF input, sentiment transitions" },
-                    { name: "Speech-to-Text Accuracy", description: "Accents (EN, ES, FR), background noise, custom vocab" },
-                    { name: "Text-to-Speech Naturalness", description: "SSML tags, voice gender, emotion, pronunciation edge cases" },
-                    { name: "REST & WebSocket APIs", description: "Swagger validation, error codes, rate limiting, idempotency" },
-                    { name: "Agent Builder", description: "Drag-drop nodes, version control, rollback, intent training UI" },
-                    { name: "Conversation Context", description: "Slot filling, entity carryover, multi-turn memory, session timeout" }
-                ]
-            },
-            {
-                name: "рџ”’ Security & Compliance",
-                description: "Data protection, auth, compliance for voice data",
-                children: [
-                    { name: "Authentication (JWT/API Keys)", description: "Token expiry, refresh rotation, RBAC roles" },
-                    { name: "Encryption", description: "TLS 1.3, AES-256 at rest, PII masking in logs" },
-                    { name: "Penetration Testing", description: "OWASP top 10, SSRF, injection, SIP fuzzing" },
-                    { name: "Rate Limiting & DDoS", description: "Per API key throttling, Cloudflare/WAF rules" },
-                    { name: "Privacy & GDPR/CCPA", description: "Call recording consent, data export, right to deletion" }
-                ]
-            },
-            {
-                name: "рџ”Њ Integration Testing",
-                description: "Third-party services, telephony carriers, CRM pipelines",
-                children: [
-                    { name: "Telephony (SIP / PSTN)", description: "Twilio, Vonage, direct SIP trunk, audio codec negotiation" },
-                    { name: "CRM Connectors", description: "Salesforce, HubSpot вЂ” field mapping, activity logs" },
-                    { name: "Analytics Export", description: "Segment, Mixpanel, custom webhooks, data format validation" },
-                    { name: "CI/CD Pipeline", description: "GitHub Actions, staging/prod environments, smoke tests" },
-                    { name: "LLM / AI Fallback", description: "OpenAI, Claude integration, failover model, consistency" }
-                ]
-            },
-            {
-                name: "рџ§  AI/ML Specific Testing",
-                description: "Intent recognition, entity extraction, multilingual, hallucinations",
-                children: [
-                    { name: "Intent Classification", description: "Confusion matrix, out-of-scope utterances, threshold tuning" },
-                    { name: "Entity Extraction", description: "Dates, locations, product names, partial matches" },
-                    { name: "Multi-language Support", description: "20+ languages, code-switching, TTS accent consistency" },
-                    { name: "Fallback & Rephrase", description: "Low confidence в†’ handoff, clarification prompts" },
-                    { name: "Bias & Fairness", description: "Gender, dialect bias detection, model explainability" }
-                ]
-            },
-            {
-                name: "рџЋЁ Usability & UX Testing",
-                description: "Real user experience, call quality, error recovery",
-                children: [
-                    { name: "User Onboarding", description: "First call success rate, tutorial completion, tooltips" },
-                    { name: "Error Messages", description: "Friendly error copy, recovery suggestions, retry logic" },
-                    { name: "Call Quality (MOS)", description: "Mean Opinion Score, packet loss, jitter, echo cancellation" },
-                    { name: "Accessibility for Hearing Impaired", description: "Live captioning, TTY support, visual indicators" },
-                    { name: "Cognitive Load", description: "Simplified IVR, no repetitive prompts, confirmations" }
-                ]
-            }
-        ]
-    };
+const data = {
+name:"Lidl Hellas Testing",
+children:[
+{
+name:"Testing Types",
+children:[
+{
+name:"Functional Testing",
+children:[
+{name:"Homepage"},
+{name:"Brochures"},
+{name:"Lidl Plus"},
+{name:"Promotions"},
+{name:"Search"},
+{name:"Cookies"}
+]
+},
+{name:"UI/UX"},
+{name:"Performance"},
+{name:"Security"},
+{name:"Compatibility"},
+{name:"Usability"},
+{name:"Localization"}
+]
+},
+{
+name:"Testing Methods",
+children:[
+{name:"Manual"},
+{name:"Exploratory"},
+{name:"Boundary Values"},
+{name:"Equivalence"},
+{name:"Pairwise"}
+]
+},
+{
+name:"Testing Levels",
+children:[
+{name:"Unit"},
+{name:"Integration"},
+{name:"System"},
+{name:"Acceptance"}
+]
+},
+{
+name:"Application Specifics",
+children:[
+{name:"Web"},
+{name:"High Load"},
+{name:"Multilingual"},
+{name:"Personal Data"},
+{name:"Social Media"},
+{name:"eCommerce"}
+]
+}
+]
+};
 
-    // Color palette for the 8 main branches
-    const branchColors = [
-        "#FF6B6B", // Mobile Testing
-        "#4ECDC4", // Web Application Testing
-        "#45B7D1", // Performance & Scalability
-        "#96CEB4", // Functional Testing
-        "#FFEAA7", // Security & Compliance
-        "#DDA0DD", // Integration Testing
-        "#F7B05E", // AI/ML Specific Testing
-        "#9B59B6"  // Usability & UX Testing
-    ];
+const width = window.innerWidth;
+const height = window.innerHeight;
 
-    // Map branch names to colors
-    const branchNameToColor = new Map();
-    mindmapData.children.forEach((child, idx) => {
-        branchNameToColor.set(child.name, branchColors[idx % branchColors.length]);
-    });
+const svg = d3.select("#map")
+.append("g")
+.attr("transform","translate(100,50)");
 
-    // Recursively assign branchColor to each node based on its top-level branch
-    function assignBranchColors(node, parentBranchColor = null) {
-        // Determine color for this node
-        if (parentBranchColor) {
-            node.branchColor = parentBranchColor;
-        } else {
-            // This is root, no color needed
-            node.branchColor = "#3b82f6"; // fallback blue
-        }
-        // If this node is a top-level branch, set its color from map and propagate
-        if (branchNameToColor.has(node.name)) {
-            node.branchColor = branchNameToColor.get(node.name);
-            parentBranchColor = node.branchColor;
-        }
-        if (node.children) {
-            node.children.forEach(child => assignBranchColors(child, parentBranchColor));
-        }
-    }
+const root = d3.hierarchy(data);
+const tree = d3.tree().size([height-100,width-200]);
+tree(root);
 
-    // Build hierarchy with branch colors
-    function buildHierarchy(nodeData, parentColor = null) {
-        let node = { ...nodeData };
-        if (node.children && node.children.length) {
-            node.children = node.children.map(child => buildHierarchy(child, node.branchColor));
-        }
-        if (!node.description && nodeData.name) {
-            node.description = `Test area: ${nodeData.name}`;
-        }
-        return node;
-    }
+// links
+svg.selectAll(".link")
+.data(root.links())
+.enter()
+.append("path")
+.attr("class","link")
+.attr("d", d3.linkHorizontal()
+.x(d=>d.y)
+.y(d=>d.x)
+);
 
-    let rootData = buildHierarchy(mindmapData);
-    assignBranchColors(rootData); // inject branchColor into all nodes
-    let root = d3.hierarchy(rootData);
-    // set initial size
-    let width = 1300, height = 850;
+// nodes
+const node = svg.selectAll(".node")
+.data(root.descendants())
+.enter()
+.append("g")
+.attr("class","node")
+.attr("transform",d=>`translate(${d.y},${d.x})`);
 
-    // set up svg and zoom group
-    const svg = d3.select("#mindmap-svg");
-    svg.html(""); // clear
-    const g = svg.append("g").attr("class", "zoom-group");
+node.append("circle")
+.attr("r",8);
 
-    // Zoom behavior
-    const zoom = d3.zoom()
-        .scaleExtent([0.3, 2.5])
-        .on("zoom", (event) => {
-            g.attr("transform", event.transform);
-        });
+node.append("text")
+.attr("dx",12)
+.attr("dy",4)
+.text(d=>d.data.name);
 
-    svg.call(zoom).call(zoom.transform, d3.zoomIdentity.translate(300, 200).scale(0.85));
-
-    // adjust viewport on resize
-    function resizeCanvas() {
-        const container = document.getElementById("mindmap-container");
-        const newWidth = container.clientWidth;
-        const newHeight = container.clientHeight;
-        svg.attr("viewBox", [0, 0, newWidth, newHeight]);
-        width = newWidth;
-        height = newHeight;
-        renderTree(root);
-    }
-    window.addEventListener("resize", () => {
-        resizeCanvas();
-    });
-
-    // Function to render tree with current root (supports collapse/expand)
-    function renderTree(sourceRoot) {
-        // Clone hierarchy for layout
-        const treeLayout = d3.tree().size([height - 100, width - 280]);
-        const rootForLayout = d3.hierarchy(sourceRoot.data);
-        // copy children collapsed state from current root
-        function copyCollapsedState(originalNode, newNode) {
-            if (originalNode._children) {
-                newNode._children = newNode.children;
-                newNode.children = null;
-            }
-            if (originalNode.children && newNode.children) {
-                originalNode.children.forEach((child, idx) => {
-                    if (newNode.children[idx]) copyCollapsedState(child, newNode.children[idx]);
-                });
-            } else if (originalNode._children && newNode._children) {
-                originalNode._children.forEach((child, idx) => {
-                    if (newNode._children[idx]) copyCollapsedState(child, newNode._children[idx]);
-                });
-            }
-        }
-        copyCollapsedState(sourceRoot, rootForLayout);
-
-        const nodes = treeLayout(rootForLayout).descendants();
-        const links = treeLayout(rootForLayout).links();
-
-        // Swap x and y to make it horizontal (root at left)
-        nodes.forEach(d => {
-            const tempX = d.x;
-            d.x = d.y;
-            d.y = tempX;
-            // additional offset to make left margin comfortable
-            d.y = d.y + 80;
-            d.x = d.x + 40;
-        });
-
-        // ---- DRAW LINKS with branch colors based on target node ----
-        const linkGroup = g.selectAll(".link").data(links, d => d.target.data.name + d.source.data.name);
-        linkGroup.exit().remove();
-
-        const linkEnter = linkGroup.enter().append("path")
-            .attr("class", "link")
-            .attr("fill", "none");
-
-        const linkUpdate = linkEnter.merge(linkGroup);
-
-        linkUpdate.transition().duration(400)
-            .attr("stroke", d => d.target.data.branchColor || "#3b6e9f")
-            .attr("stroke-width", 2.2)
-            .attr("d", d => {
-                return `M ${d.source.x} ${d.source.y}
-                        C ${(d.source.x + d.target.x) / 2} ${d.source.y},
-                          ${(d.source.x + d.target.x) / 2} ${d.target.y},
-                          ${d.target.x} ${d.target.y}`;
-            });
-
-        // ---- DRAW NODES ----
-        const nodeGroup = g.selectAll(".node").data(nodes, d => d.data.name);
-        nodeGroup.exit().remove();
-
-        const nodeEnter = nodeGroup.enter().append("g")
-            .attr("class", "node")
-            .attr("transform", d => `translate(${d.x},${d.y})`)
-            .style("cursor", "pointer")
-            .on("click", function(event, d) {
-                event.stopPropagation();
-                // toggle children: collapse/expand
-                if (d.children) {
-                    d._children = d.children;
-                    d.children = null;
-                } else if (d._children) {
-                    d.children = d._children;
-                    d._children = null;
-                }
-                renderTree(sourceRoot); // re-render from the persistent source root
-            });
-
-        nodeEnter.append("circle")
-            .attr("r", 10)
-            .attr("stroke", d => d.data.branchColor || "#2c7be5")
-            .attr("stroke-width", 2.2)
-            .attr("fill", "#10182f");
-
-        nodeEnter.append("text")
-            .attr("dy", ".32em")
-            .attr("x", 15)
-            .attr("y", 4)
-            .style("font-size", "12px")
-            .style("font-weight", "500")
-            .text(d => d.data.name.length > 28 ? d.data.name.slice(0, 25) + "..." : d.data.name);
-
-        // transition for existing nodes
-        const nodeUpdate = nodeEnter.merge(nodeGroup);
-        nodeUpdate.transition().duration(400)
-            .attr("transform", d => `translate(${d.x},${d.y})`);
-
-        nodeUpdate.select("circle")
-            .attr("r", 10)
-            .attr("stroke", d => d.data.branchColor || "#2c7be5")
-            .attr("stroke-width", d => (d.children || d._children) ? 2.8 : 2.2);
-
-        nodeUpdate.select("text")
-            .text(d => d.data.name.length > 28 ? d.data.name.slice(0, 25) + "..." : d.data.name);
-
-        // Expand/Collapse indicator with matching branch color
-        nodeEnter.filter(d => d.children || d._children)
-            .append("circle")
-            .attr("r", 6)
-            .attr("cx", -12)
-            .attr("cy", -2)
-            .attr("fill", d => d.data.branchColor || "#2ecc71")
-            .attr("stroke", "#ffffff")
-            .attr("stroke-width", 1)
-            .style("cursor", "pointer");
-        
-        nodeUpdate.selectAll("circle:last-child").attr("fill", d => d.data.branchColor || "#2ecc71");
-    }
-
-    // initial first render after ensuring dimensions
-    function init() {
-        const container = document.getElementById("mindmap-container");
-        width = container.clientWidth;
-        height = container.clientHeight;
-        svg.attr("viewBox", [0, 0, width, height]);
-        renderTree(root);
-    }
-
-    init();
-
-    // re-run on full load
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            const container = document.getElementById("mindmap-container");
-            width = container.clientWidth;
-            height = container.clientHeight;
-            svg.attr("viewBox", [0, 0, width, height]);
-            renderTree(root);
-        }, 100);
-    });
 </script>
 </body>
 </html>
