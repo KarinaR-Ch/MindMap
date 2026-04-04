@@ -97,15 +97,6 @@
 </div>
 
 <script>
-   // --------------------------------------------------------------
-   // LIDL HELLAS – COMPLETE TESTING STRATEGY (pure text, no icons)
-   // ENHANCED SYMMETRIC LAYOUT: Functional + UI/UX on LEFT side,
-   // Performance, Security, Compatibility, Usability, Localization on RIGHT side.
-   // CRITICAL: Each node's circle is placed on the side of the text that is 
-   // closer to the central root node (Lidl Hellas Testing Strategy).
-   // Left-side nodes → circle on the right of text, right-side nodes → circle on the left of text.
-   // No overlapping between text, lines, or indicators.
-   // --------------------------------------------------------------
    const testingData = {
        name: "Lidl Hellas Testing Strategy",
        description: "Full quality assurance for web platform, e‑brochures, Lidl Plus, promotions, performance & compliance",
@@ -185,7 +176,7 @@
                    ]},
                    { name: "Stress Testing", children: [
                        { name: "Sudden traffic spikes" },
-                       { name: "Behavior when server limits are exceeded" }
+                       { name: "Server limits are exceeded" }
                    ]}
                ]
            },
@@ -194,7 +185,7 @@
                branchKey: "security",
                children: [
                    { name: "Authentication", children: [
-                       { name: "Brute-force protection (lockout after several failed attempts)" },
+                       { name: "Lockout after many failed attempts" },
                        { name: "Password transmitted encrypted" }
                    ]},
                    { name: "Data Protection", children: [
@@ -213,9 +204,9 @@
                branchKey: "compatibility",
                children: [
                    { name: "Browsers", children: [
-                       { name: "Chrome (latest)" },
+                       { name: "Chrome" },
                        { name: "Firefox" },
-                       { name: "Safari (macOS, iOS)" },
+                       { name: "Safari" },
                        { name: "Edge" }
                    ]},
                    { name: "Operating Systems", children: [
@@ -233,7 +224,6 @@
                    { name: "Keyboard Navigation", children: [
                        { name: "Tab, Shift+Tab for movement" },
                        { name: "Enter/Space to activate elements" },
-                       { name: "Visible focus indicator" }
                    ]},
                    { name: "Screen Reader", children: [
                        { name: "Appropriate ARIA attributes" },
@@ -247,7 +237,7 @@
                children: [
                    { name: "Language", children: [
                        { name: "Greek by default" },
-                       { name: "Presence of language switch to English (defect identified)" }
+                       { name: "Switch language to English" }
                    ]},
                    { name: "Formats", children: [
                        { name: "Date (Greek format)" },
